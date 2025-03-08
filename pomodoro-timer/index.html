@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Lock-in</title>
+  </head>
+  <body class="font-Istok bg-background-tomato-red">
+    <!-- BackGroundGif -->
+    <!-- header -->
+    <header class="px-5 xl:px-72 md:px-20 lg:px-42">
+      <div
+        class="py-5 flex items-center justify-between xl:border-b-[2px] border-[#8a3a38]"
+      >
+        <div class="flex justify-center items-center gap-x-2">
+          <!-- logo -->
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-[2rem]"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <g id="Calendar / Timer">
+                <path
+                  id="Vector"
+                  d="M12 13V9M21 6L19 4M10 2H14M12 21C7.58172 21 4 17.4183 4 13C4 8.58172 7.58172 5 12 5C16.4183 5 20 8.58172 20 13C20 17.4183 16.4183 21 12 21Z"
+                  stroke="#ffff"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </g>
+            </g>
+          </svg>
+          <h1 class="font-bold text-white text-[1.5rem]">Lock-in</h1>
+        </div>
+
+        <div class="flex">
+          <svg
+            fill="white"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            class="size-8 bg-[#ba4a49] p-1 rounded cursor-pointer mx-3"
+            stroke="white"
+            id="goalsBtn"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                d="M12,1A11,11,0,1,0,23,12,11.013,11.013,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9.011,9.011,0,0,1,12,21ZM17.737,8.824a1,1,0,0,1-.061,1.413l-6,5.5a1,1,0,0,1-1.383-.03l-3-3a1,1,0,0,1,1.415-1.414l2.323,2.323,5.294-4.853A1,1,0,0,1,17.737,8.824Z"
+              ></path>
+            </g>
+          </svg>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="white"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="white"
+            class="size-8 bg-[#ba4a49] p-1 rounded cursor-pointer mx-3"
+            title="stats"
+            id="statsBtn"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"
+            />
+          </svg>
+        </div>
+      </div>
+    </header>
+    <!-- goals container -->
+    <div
+      class="h-screen w-screen bg-white fixed top-0 z-10 hidden justify-start items-center flex-col"
+      id="goalsContainer"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="{1.5}"
+        stroke="currentColor"
+        className="size-6 "
+        class="w-[2rem] absolute right-0 top-0"
+        id="goalsCloseBtn"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M6 18 18 6M6 6l12 12"
+        />
+      </svg>
+
+      <h1>Goals</h1>
+      <input type="text" name="goalsInput" id="goalsInput" class="border" />
+      <input type="date" name="goalDueDate" id="goalDueDate" />
+      <button id="addGoalBtn">Add Goal</button>
+      <div id="allGoalsContainer"></div>
+    </div>
+
+    <!-- stats container -->
+    <div
+      class="h-screen w-screen bg-white fixed top-0 z-10 hidden justify-start items-center flex-col"
+      id="statsContainer"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="{1.5}"
+        stroke="currentColor"
+        className="size-6 "
+        class="w-[2rem] absolute right-0 top-0"
+        id="statsCloseBtn"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M6 18 18 6M6 6l12 12"
+        />
+      </svg>
+
+      <h1>ALL Stats</h1>
+
+      <div class="flex justify-center items-center gap-x-10" id="allStats">
+        <div>
+          <h1>Pomodoro</h1>
+
+          <div id="pomodoroStatsContainer">Pomodoro</div>
+        </div>
+
+        <div>
+          <h1>Short Break</h1>
+
+          <div id="shortStatsContainer">Short Break</div>
+        </div>
+
+        <div>
+          <h1>Long Break</h1>
+
+          <div id="longStatsContainer">Long Break</div>
+        </div>
+
+        <div>
+          <h1>Goals</h1>
+
+          <div id="goalsStatsContainer">Long Break</div>
+        </div>
+      </div>
+    </div>
+    <!-- main container -->
+
+    <div class="flex justify-center items-center flex-col py-10">
+      <div class="bg-secondary-red rounded p-5 mx-2 md:px-15 xl:px-20">
+        <!-- timer type buttons -->
+        <div
+          class="my-5 flex justify-center items-center gap-x-3 text-white font-bold xl:text-[1.2rem]"
+        >
+          <button
+            data-Pomodoro-time="24"
+            id="pomodoroBtn"
+            class="px-1 py-1 rounded timerBtn cursor-pointer"
+          >
+            Pomodoro
+          </button>
+          <button
+            data-shortBreak-time="4"
+            id="shortBreakBtn"
+            class="px-1 py-1 rounded cursor-pointer"
+          >
+            Short Break
+          </button>
+          <button
+            data-longBreak-time="24"
+            id="longBreakBtn"
+            class="px-1 py-1 rounded cursor-pointer"
+          >
+            Long Break
+          </button>
+        </div>
+
+        <!-- pomodoro -->
+        <div class="flex justify-center items-center flex-col">
+          <h1
+            id="display-timer"
+            class="text-[5rem] xl:text-[8rem] md:text-[6.5rem] font-extrabold text-white"
+          ></h1>
+          <button
+            id="start-btn"
+            class="my-5 px-16 text-[1.5rem] py-3 rounded text-background-tomato-red bg-white cursor-pointer"
+          >
+            START
+          </button>
+        </div>
+      </div>
+    </div>
+    <p class="text-white w-full text-center">Time to focus!</p>
+
+    <script type="module" src="/src/script.js"></script>
+  </body>
+</html>

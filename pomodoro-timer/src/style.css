@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@theme {
+  --color-background-tomato-red: #ba4a49;
+  --color-secondary-red: #c05c5c;
+  --color-background-green: #38868a;
+  --color-secondary-green: #38868a;
+  --color-background-blue: #397097;
+  --color-secondary-blue: #4d7fa2;
+  --font-Istok: "Istok Web", serif;
+  --color-main-container: #f1dada;
+  --hero-image: url("wallpaper.png");
+}
+
+body.pomodoro {
+}
+
+body.short {
+}
+
+body.long {
+}
+
+.timerBtn {
+  background-color: white;
+  color: var(--color-background-tomato-red);
+}
+
+.show {
+  display: flex;
+}
+
+.goalCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* .main {
+  background-image: url("/public/imgs/study2.gif");
+  background-position: center;
+  background-size: cover;
+} */
