@@ -11,8 +11,8 @@ export default function todoCard(goal, deadline) {
       </div>
 
       <div class="flex justify-center items-start ">
-        <button class="md:px-3 px-2 editBtn"><i class="fa-solid fa-square-pen md:text-2xl text-gray-400" title="edit goal"></i></button>
-        <button class="md:px-3  px-2 deleteBtn"><i class="fa-solid fa-square-minus md:text-2xl text-gray-400" title="delete goal"></i></button>
+        <button class="md:px-3 px-2 editBtn "><i class="fa-solid fa-square-pen md:text-2xl text-gray-400 hover:text-white transition-colors" title="edit goal"></i></button>
+        <button class="md:px-3  px-2 deleteBtn"><i class="fa-solid fa-square-minus md:text-2xl text-gray-400 hover:text-white transition-colors" title="delete goal"></i></button>
       </div>
     </div>`;
 }

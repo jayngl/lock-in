@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="public/imgs/logo.svg" type="image/x-icon" />
     <link rel="stylesheet" href="src/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,9 +21,7 @@
   <body class="font-Istok bg-background-tomato-red">
     <!-- header -->
     <header class="px-5 xl:px-72 md:px-20 lg:px-42">
-      <div
-        class="py-5 flex items-center justify-between xl:border-b-[2px] border-[#ffff]"
-      >
+      <div class="py-5 flex items-center justify-between">
         <div class="flex justify-center items-center gap-x-2">
           <!-- logo -->
           <svg
@@ -60,7 +59,7 @@
             fill="white"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
-            class="size-8 p-1 rounded cursor-pointer mx-3"
+            class="size-8 p-1 rounded cursor-pointer mx-3 hover:inset-ring-[.125rem] hover:inset-ring-white transition-all"
             stroke="white"
             id="goalsBtn"
           >
@@ -83,7 +82,7 @@
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="white"
-            class="size-8 p-1 rounded cursor-pointer mx-3"
+            class="size-8 p-1 rounded cursor-pointer mx-3 hover:inset-ring-[.125rem] hover:inset-ring-white transition-all"
             title="stats"
             id="statsBtn"
           >
@@ -95,10 +94,18 @@
           </svg>
         </div>
       </div>
+      <div
+        class="w-full h-[.0313rem] bg-whiteish md:flex justify-start items-center hidden"
+      >
+        <div
+          class="w-0 h-[.3125rem] bg-white rounded-[.4375rem]"
+          id="progressBar"
+        ></div>
+      </div>
     </header>
     <!-- goals container -->
     <div
-      class="h-screen w-screen bg-white fixed overflow-y-scroll top-0 z-10 hidden justify-start items-center flex-col"
+      class="h-screen w-screen bg-white fixed top-0 z-10 hidden justify-start items-center flex-col"
       id="goalsContainer"
     >
       <svg
@@ -133,7 +140,7 @@
 
         <button
           id="addGoalBtn"
-          class="bg-secondary-green px-7 text-white h-full my-1 text-2xl font-bold"
+          class="bg-secondary-green px-7 text-white h-full my-1 text-2xl font-bold hover:bg-gray-600 transition-colors hover:text-gray-400"
           title="add goal"
         >
           +
@@ -147,7 +154,7 @@
         title="enter due date...."
       />
 
-      <div id="allGoalsContainer"></div>
+      <div id="allGoalsContainer" class="overflow-y-auto"></div>
     </div>
 
     <!-- stats container -->
@@ -253,7 +260,7 @@
           ></h1>
           <button
             id="start-btn"
-            class="my-5 px-14 md:px-16 text-[1rem] md:text-[1.5rem] py-2 md:py-3 rounded text-background-tomato-red bg-white cursor-pointer"
+            class="box-border my-5 px-14 md:px-16 text-[1rem] md:text-[1.5rem] py-2 md:py-3 rounded text-background-tomato-red bg-white cursor-pointer hover:inset-ring-1 hover:inset-ring-white hover:bg-transparent transition-colors"
           >
             START
           </button>

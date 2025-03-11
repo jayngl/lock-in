@@ -1,5 +1,6 @@
 import todoCard from "./todoCard";
 const startBtn = document.getElementById("start-btn");
+const progressBar = document.getElementById("progressBar");
 const displayTimer = document.getElementById("display-timer");
 const pomodoroBtn = document.getElementById("pomodoroBtn");
 const shortBreakBtn = document.getElementById("shortBreakBtn");
@@ -23,8 +24,8 @@ const longStatsContainer = document.getElementById("longStatsContainer");
 const goalsStatsContainer = document.getElementById("goalsStatsContainer");
 const mainTimerContainer = document.getElementById("main-timer-container");
 
-let timeMinutes = 0; //29
-let timeSeconds = 10; //60
+let timeMinutes = 29; //29
+let timeSeconds = 60; //60
 let timerInterval;
 let sessionType = "pomodoro";
 let timesPaused = 0;
@@ -67,6 +68,19 @@ class Goal {
     this.isCompleted = isCompleted;
   }
 }
+
+// progress bar
+let progess = 0;
+
+const progressCalc = () => {
+  if (sessionType === "pomodoro" || sessionType === "longBreak") {
+    progess += 0.536;
+    progressBar.style.width = `${progess}px`;
+  } else if (sessionType === "shortBreak") {
+    progess += 2.68;
+    progressBar.style.width = `${progess}px`;
+  }
+};
 
 // make it so that the time value is either 25 or the value that is set in data attribute
 displayTimer.textContent = "25:00";
@@ -160,6 +174,7 @@ startBtn.addEventListener("click", () => {
         timesPaused = 0;
       } else {
         timer();
+        progressCalc();
       }
     }, 1000);
   }
@@ -177,6 +192,8 @@ pomodoroBtn.addEventListener("click", () => {
   document.body.style.backgroundColor = "#ba4a49";
   mainTimerContainer.style.backgroundColor = "#c05c5c";
   startBtn.style.color = "#ba4a49";
+  progressBar.style.width = "0";
+  progess = 0;
 
   const timerBtn = document.querySelectorAll(".timerBtn").forEach((btn) => {
     btn.classList.remove("timerBtn");
@@ -196,6 +213,8 @@ shortBreakBtn.addEventListener("click", () => {
   document.body.style.backgroundColor = "#38868a";
   mainTimerContainer.style.backgroundColor = "#4c9196";
   startBtn.style.color = "#38868a";
+  progressBar.style.width = "0";
+  progess = 0;
 
   const timerBtn = document.querySelectorAll(".timerBtn").forEach((btn) => {
     btn.classList.remove("timerBtn");
@@ -213,6 +232,8 @@ longBreakBtn.addEventListener("click", () => {
   document.body.style.backgroundColor = "#397097";
   mainTimerContainer.style.backgroundColor = "#4d7fa2";
   startBtn.style.color = "#397097";
+  progressBar.style.width = "0";
+  progess = 0;
 
   const timerBtn = document.querySelectorAll(".timerBtn").forEach((btn) => {
     btn.classList.remove("timerBtn");

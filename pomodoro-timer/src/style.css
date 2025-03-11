@@ -18,15 +18,7 @@
   --color-main-container: #f1dada;
   --hero-image: url("wallpaper.png");
   --breakpoint-xs: 20rem;
-}
-
-body.pomodoro {
-}
-
-body.short {
-}
-
-body.long {
+  --color-whiteish: rgba(255, 255, 255, 0.3);
 }
 
 .timerBtn {
