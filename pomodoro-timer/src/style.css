@@ -11,12 +11,13 @@
   --color-background-tomato-red: #ba4a49;
   --color-secondary-red: #c05c5c;
   --color-background-green: #38868a;
-  --color-secondary-green: #38868a;
+  --color-secondary-green: #4c9196;
   --color-background-blue: #397097;
   --color-secondary-blue: #4d7fa2;
   --font-Istok: "Istok Web", serif;
   --color-main-container: #f1dada;
   --hero-image: url("wallpaper.png");
+  --breakpoint-xs: 20rem;
 }
 
 body.pomodoro {
@@ -29,8 +30,8 @@ body.long {
 }
 
 .timerBtn {
-  background-color: white;
-  color: var(--color-background-tomato-red);
+  border: 1px solid white;
+  color: white;
 }
 
 .show {
@@ -38,14 +39,30 @@ body.long {
 }
 
 .goalCard {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  margin-bottom: 1rem;
 }
 
+@media screen and (min-width: 768px) {
+  .goalCard {
+    margin-bottom: 1rem;
+    min-width: 50vw;
+  }
+
+  .goalCheckBox {
+    width: 1.5625rem;
+    margin-left: 0.625rem;
+  }
+}
 /* .main {
   background-image: url("/public/imgs/study2.gif");
   background-position: center;
   background-size: cover;
 } */
+
+.goalCheckBox:checked {
+  accent-color: var(--color-secondary-green);
+}
+
+#allStats h2 {
+  color: #e5e7eb;
+}

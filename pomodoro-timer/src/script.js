@@ -1,3 +1,4 @@
+import todoCard from "./todoCard";
 const startBtn = document.getElementById("start-btn");
 const displayTimer = document.getElementById("display-timer");
 const pomodoroBtn = document.getElementById("pomodoroBtn");
@@ -17,19 +18,16 @@ const goalsBtn = document.getElementById("goalsBtn");
 const goalsCloseBtn = document.getElementById("goalsCloseBtn");
 const allGoalsContainer = document.getElementById("allGoalsContainer");
 
-const allStats = document.getElementById("allStats");
-
 const shortStatsContainer = document.getElementById("shortStatsContainer");
 const longStatsContainer = document.getElementById("longStatsContainer");
 const goalsStatsContainer = document.getElementById("goalsStatsContainer");
+const mainTimerContainer = document.getElementById("main-timer-container");
 
-let timeMinutes = 29; //29
-let timeSeconds = 60; //60
+let timeMinutes = 0; //29
+let timeSeconds = 10; //60
 let timerInterval;
 let sessionType = "pomodoro";
 let timesPaused = 0;
-
-const backgroundVideos = [];
 
 // stats for each type of timer
 const allPomodoroSessions = JSON.parse(localStorage.getItem("pomodoro")) || [];
@@ -80,7 +78,7 @@ const timer = () => {
     timeSeconds -= 1;
   } else if (timeSeconds === 0) {
     timeMinutes -= 1;
-    timeSeconds = 60;
+    timeSeconds = 59;
   }
 
   displayTimer.textContent = `${timeMinutes
@@ -91,8 +89,22 @@ const timer = () => {
 // start and pause functionality that uses a click counter
 // to check whether to pause or play timer
 
+// play alert sound for start and end of timer
+const playStartAudio = () => {
+  let startAudio = new Audio("./public/audio/start.mp3");
+  startAudio.play();
+};
+
+const playEndAudio = () => {
+  let endAudio = new Audio("./public/audio/end.mp3");
+  endAudio.play();
+};
+
 let clickCounter = 0;
 startBtn.addEventListener("click", () => {
+  setTimeout(() => {
+    playStartAudio();
+  }, 100);
   clickCounter++;
 
   console.log(clickCounter);
@@ -106,7 +118,12 @@ startBtn.addEventListener("click", () => {
   } else {
     timerInterval = setInterval(() => {
       if (timeMinutes === 0 && timeSeconds === 0) {
+        setTimeout(() => {
+          playEndAudio();
+        }, 10);
+
         clearInterval(timerInterval);
+
         timeMinutes = 24;
         timeSeconds = 59;
         displayTimer.textContent = "25:00";
@@ -150,13 +167,16 @@ startBtn.addEventListener("click", () => {
 
 // choose a timer functionality
 
-// pomodoro
+// POMODORO
 pomodoroBtn.addEventListener("click", () => {
   resetTimer();
 
   timeMinutes = Number(pomodoroBtn.getAttribute("data-Pomodoro-time"));
   displayTimer.textContent = "25:00";
   sessionType = "pomodoro";
+  document.body.style.backgroundColor = "#ba4a49";
+  mainTimerContainer.style.backgroundColor = "#c05c5c";
+  startBtn.style.color = "#ba4a49";
 
   const timerBtn = document.querySelectorAll(".timerBtn").forEach((btn) => {
     btn.classList.remove("timerBtn");
@@ -173,6 +193,9 @@ shortBreakBtn.addEventListener("click", () => {
   timeMinutes = Number(shortBreakBtn.getAttribute("data-shortBreak-time"));
   displayTimer.textContent = "05:00";
   sessionType = "shortBreak";
+  document.body.style.backgroundColor = "#38868a";
+  mainTimerContainer.style.backgroundColor = "#4c9196";
+  startBtn.style.color = "#38868a";
 
   const timerBtn = document.querySelectorAll(".timerBtn").forEach((btn) => {
     btn.classList.remove("timerBtn");
@@ -187,6 +210,9 @@ longBreakBtn.addEventListener("click", () => {
   timeMinutes = Number(longBreakBtn.getAttribute("data-longBreak-time"));
   displayTimer.textContent = "25:00";
   sessionType = "longBreak";
+  document.body.style.backgroundColor = "#397097";
+  mainTimerContainer.style.backgroundColor = "#4d7fa2";
+  startBtn.style.color = "#397097";
 
   const timerBtn = document.querySelectorAll(".timerBtn").forEach((btn) => {
     btn.classList.remove("timerBtn");
@@ -211,7 +237,6 @@ const getTimeStamp = () => {
   return `${year}-${month}-${day}`;
 };
 
-// getTimeStamp();
 // STATS
 
 // Show/hide stats screen
@@ -230,16 +255,16 @@ statsCloseBtn.addEventListener("click", () => {
 
 const displayAllStats = () => {
   const docFrag = document.createDocumentFragment();
-  const totalSessions = document.createElement("h1");
-  const totalSessionHours = document.createElement("h1");
-  const totalInterrupted = document.createElement("h1");
-  const totalShortBreaks = document.createElement("h1");
-  const totalLongBreaks = document.createElement("h1");
-  const totalShortBreakHours = document.createElement("h1");
-  const totalLongBreakHours = document.createElement("h1");
-  const totalGoals = document.createElement("h1");
-  const CompletedGoals = document.createElement("h1");
-  const OutstandingGoals = document.createElement("h1");
+  const totalSessions = document.createElement("h2");
+  const totalSessionHours = document.createElement("h2");
+  const totalInterrupted = document.createElement("h2");
+  const totalShortBreaks = document.createElement("h2");
+  const totalLongBreaks = document.createElement("h2");
+  const totalShortBreakHours = document.createElement("h2");
+  const totalLongBreakHours = document.createElement("h2");
+  const totalGoals = document.createElement("h2");
+  const CompletedGoals = document.createElement("h2");
+  const OutstandingGoals = document.createElement("h2");
 
   let interrupted = 0;
   allPomodoroSessions.forEach((session) => {
@@ -288,7 +313,7 @@ const displayAllStats = () => {
     }
   });
 
-  OutstandingGoals.textContent = `Outstanding Goals: ${overDueGoals}`;
+  OutstandingGoals.textContent = `Overdue Goals: ${overDueGoals}`;
 
   docFrag.append(totalSessions, totalSessionHours, totalInterrupted);
   pomodoroStatsContainer.append(docFrag);
@@ -305,23 +330,7 @@ const displayAllStats = () => {
 
 displayAllStats();
 
-// total break for both and total break hours for both
-
-// for the interupted sessions
-// if paused > 0 then incremement a variable
-
-// Total Pomodoro sessions completed
-// Total minutes/hours of focused workv - total full sessions in hours
-
-// Number of interrupted sessions - variable to keep track of how many times timer is paused
-// Breaks taken vs. skipped
-
 // GOALS
-// make it so that user is able to set goals
-// stats for goal, total goals completed, goal are ment to be done in a time frame
-//  so maybe should i add expected total sessions to complete
-
-// ADD Asthetic gifs for each timer
 
 // open and close goals section
 goalsBtn.addEventListener("click", () => {
@@ -353,74 +362,74 @@ const addGoal = () => {
 let editClickCounter = 0;
 // display all goals onto the goals container
 const displayGoals = () => {
-  const docFrag = document.createDocumentFragment();
-  allGoals.forEach((goal, index) => {
+  // const docFrag = document.createDocumentFragment();
+  allGoals.forEach((goal) => {
     const goalCard = document.createElement("div");
-    const goalCheckbox = document.createElement("INPUT");
-    goalCheckbox.setAttribute("type", "checkbox");
-    goalCheckbox.classList.add("goalCheckbox");
 
-    goalCheckbox.addEventListener("click", () => {
-      togglecompletedGoals(goal, goalCheckbox);
-    });
+    goalCard.classList.add("goalCard");
+    goalCard.innerHTML = todoCard(goal.goalString, goal.estematedDate);
+    allGoalsContainer.append(goalCard);
+  });
 
+  const goalCheckBox = document.querySelectorAll(".goalCheckBox");
+  const editBtns = document.querySelectorAll(".editBtn");
+  const deleteBtns = document.querySelectorAll(".deleteBtn");
+
+  // goal checkbox functionality
+  goalCheckBox.forEach((checkbox, index) => {
     // saves the state of checkboxes and makes them persistent
 
-    if (goal.isCompleted === true) {
-      goalCheckbox.checked = true;
+    if (allGoals[index].isCompleted === true) {
+      goalCheckBox[index].checked = true;
     } else {
-      goalCheckbox.checked = false;
+      goalCheckBox[index].checked = false;
     }
-    const goalTitle = document.createElement("p");
-    const goaldueBy = document.createElement("p");
-    const editBtn = document.createElement("button");
-    const deleteBtn = document.createElement("button");
 
+    checkbox.addEventListener("click", () => {
+      togglecompletedGoals(checkbox, index);
+    });
+  });
+
+  editBtns.forEach((editBtn, index) => {
     editBtn.addEventListener("click", () => {
       goalsInput.focus();
-      editBtn.textContent = "save";
+      editBtn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i>`;
       editClickCounter++;
-      console.log(editClickCounter);
       if (editClickCounter === 2) {
         editGoal(index);
         editClickCounter = 0;
-        editBtn.textContent = "save";
+        editBtn.innerHTML = `<i class="fa-solid fa-square-pen editBtn"></i>`;
       }
     });
+  });
 
+  deleteBtns.forEach((deleteBtn, index) => {
     deleteBtn.addEventListener("click", () => {
       deleteGoal(index);
     });
-
-    goaldueBy.textContent = `Deadline: ${goal.estematedDate}`;
-    goalTitle.textContent = goal.goalString;
-    editBtn.textContent = "edit";
-    deleteBtn.textContent = "delete";
-    goalCard.classList.add("goalCard");
-    goalCard.append(goalCheckbox, goaldueBy, goalTitle, editBtn, deleteBtn);
-    docFrag.append(goalCard);
-    allGoalsContainer.append(docFrag);
   });
 };
 
 displayGoals();
 
 // checkBox updated goal completed status
-const togglecompletedGoals = (goal, goalCheckbox) => {
-  if (goalCheckbox.checked === true) {
-    goal.isCompleted = true;
-  } else if (goalCheckbox.checked === false) {
-    goal.isCompleted = false;
+const togglecompletedGoals = (checkbox, index) => {
+  if (checkbox.checked === true) {
+    allGoals[index].isCompleted = true;
+  } else if (checkbox.checked === false) {
+    allGoals[index].isCompleted = false;
   }
   localStorage.setItem("goals", JSON.stringify(allGoals));
 };
 
 //edit goal functionality
 const editGoal = (index) => {
-  allGoals[index].goalString = goalsInput.value;
-  localStorage.setItem("goals", JSON.stringify(allGoals));
-  allGoalsContainer.innerHTML = "";
-  displayGoals();
+  if (goalsInput.value !== "") {
+    allGoals[index].goalString = goalsInput.value;
+    localStorage.setItem("goals", JSON.stringify(allGoals));
+    allGoalsContainer.innerHTML = "";
+    displayGoals();
+  }
 };
 
 // delete goal functionality

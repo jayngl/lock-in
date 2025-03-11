@@ -11,14 +11,17 @@
       href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/be27bbf8b7.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Lock-in</title>
   </head>
   <body class="font-Istok bg-background-tomato-red">
-    <!-- BackGroundGif -->
     <!-- header -->
     <header class="px-5 xl:px-72 md:px-20 lg:px-42">
       <div
-        class="py-5 flex items-center justify-between xl:border-b-[2px] border-[#8a3a38]"
+        class="py-5 flex items-center justify-between xl:border-b-[2px] border-[#ffff]"
       >
         <div class="flex justify-center items-center gap-x-2">
           <!-- logo -->
@@ -47,7 +50,9 @@
               </g>
             </g>
           </svg>
-          <h1 class="font-bold text-white text-[1.5rem]">Lock-in</h1>
+          <h1 class="font-bold text-white md:text-[1.5rem] text-[1rem]">
+            Lock-in
+          </h1>
         </div>
 
         <div class="flex">
@@ -55,7 +60,7 @@
             fill="white"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
-            class="size-8 bg-[#ba4a49] p-1 rounded cursor-pointer mx-3"
+            class="size-8 p-1 rounded cursor-pointer mx-3"
             stroke="white"
             id="goalsBtn"
           >
@@ -78,7 +83,7 @@
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="white"
-            class="size-8 bg-[#ba4a49] p-1 rounded cursor-pointer mx-3"
+            class="size-8 p-1 rounded cursor-pointer mx-3"
             title="stats"
             id="statsBtn"
           >
@@ -93,7 +98,7 @@
     </header>
     <!-- goals container -->
     <div
-      class="h-screen w-screen bg-white fixed top-0 z-10 hidden justify-start items-center flex-col"
+      class="h-screen w-screen bg-white fixed overflow-y-scroll top-0 z-10 hidden justify-start items-center flex-col"
       id="goalsContainer"
     >
       <svg
@@ -103,8 +108,9 @@
         strokeWidth="{1.5}"
         stroke="currentColor"
         className="size-6 "
-        class="w-[2rem] absolute right-0 top-0"
+        class="w-[2rem] absolute right-2 top-[1.8rem]"
         id="goalsCloseBtn"
+        title="close"
       >
         <path
           strokeLinecap="round"
@@ -113,16 +119,40 @@
         />
       </svg>
 
-      <h1>Goals</h1>
-      <input type="text" name="goalsInput" id="goalsInput" class="border" />
-      <input type="date" name="goalDueDate" id="goalDueDate" />
-      <button id="addGoalBtn">Add Goal</button>
+      <h1 class="text-[2rem] my-5 font-black">Goals</h1>
+      <div
+        class="bg-gray-100 min-w-[50vw] rounded-[.45rem] my-[1rem] p-0 flex justify-between items-center overflow-hidden"
+      >
+        <input
+          type="text"
+          name="goalsInput"
+          id="goalsInput"
+          class="py-2 pl-[.625rem] w-full focus:outline-0"
+          placeholder="enter goal..."
+        />
+
+        <button
+          id="addGoalBtn"
+          class="bg-secondary-green px-7 text-white h-full my-1 text-2xl font-bold"
+          title="add goal"
+        >
+          +
+        </button>
+      </div>
+      <input
+        type="date"
+        name="goalDueDate"
+        id="goalDueDate"
+        class="mb-8"
+        title="enter due date...."
+      />
+
       <div id="allGoalsContainer"></div>
     </div>
 
     <!-- stats container -->
     <div
-      class="h-screen w-screen bg-white fixed top-0 z-10 hidden justify-start items-center flex-col"
+      class="h-screen w-screen bg-white fixed overflow-y-scroll md:overflow-visible top-0 right-0 z-10 hidden justify-start items-center flex-col"
       id="statsContainer"
     >
       <svg
@@ -132,7 +162,7 @@
         strokeWidth="{1.5}"
         stroke="currentColor"
         className="size-6 "
-        class="w-[2rem] absolute right-0 top-0"
+        class="w-[2rem] absolute right-2 top-[1.8rem]"
         id="statsCloseBtn"
       >
         <path
@@ -142,38 +172,52 @@
         />
       </svg>
 
-      <h1>ALL Stats</h1>
+      <h1 class="text-[2rem] font-bold my-5">All stats</h1>
 
-      <div class="flex justify-center items-center gap-x-10" id="allStats">
-        <div>
-          <h1>Pomodoro</h1>
+      <div
+        class="flex justify-center items-center gap-y-3 flex-col md:flex-row bg-gray-200 w-full px-3 md:px-7 py-5 md:h-screen md:gap-x-3"
+        id="allStats"
+      >
+        <div
+          class="bg-secondary-red flex justify-start items-center flex-col w-full rounded-[.45rem] md:h-[15rem] flex-[50%] md:px-4 py-3"
+        >
+          <h1 class="text-center text-xl font-bold my-3">Pomodoro</h1>
 
           <div id="pomodoroStatsContainer">Pomodoro</div>
         </div>
 
-        <div>
-          <h1>Short Break</h1>
+        <div
+          class="bg-secondary-green w-full rounded-[.45rem] md:h-[15rem] flex-[50%] flex justify-start items-center flex-col md:px-4 py-3"
+        >
+          <h1 class="text-center text-xl font-bold my-3">Short Break</h1>
 
-          <div id="shortStatsContainer">Short Break</div>
+          <div id="shortStatsContainer"></div>
         </div>
 
-        <div>
-          <h1>Long Break</h1>
+        <div
+          class="bg-secondary-blue ] w-full rounded-[.45rem] md:h-[15rem] flex-[50%] flex justify-start items-center flex-col md:px-4 py-3"
+        >
+          <h1 class="text-center text-xl font-bold my-3">Long Break</h1>
 
-          <div id="longStatsContainer">Long Break</div>
+          <div id="longStatsContainer"></div>
         </div>
 
-        <div>
-          <h1>Goals</h1>
+        <div
+          class="bg-gray-400 w-full rounded-[.45rem] md:h-[15rem] flex-[50%] flex justify-start items-center flex-col md:px-4 py-3"
+        >
+          <h1 class="text-center text-xl font-bold my-3">Goals</h1>
 
-          <div id="goalsStatsContainer">Long Break</div>
+          <div id="goalsStatsContainer"></div>
         </div>
       </div>
     </div>
     <!-- main container -->
 
     <div class="flex justify-center items-center flex-col py-10">
-      <div class="bg-secondary-red rounded p-5 mx-2 md:px-15 xl:px-20">
+      <div
+        class="bg-secondary-red rounded p-5 mx-2 md:px-15 xl:px-20"
+        id="main-timer-container"
+      >
         <!-- timer type buttons -->
         <div
           class="my-5 flex justify-center items-center gap-x-3 text-white font-bold xl:text-[1.2rem]"
@@ -181,21 +225,21 @@
           <button
             data-Pomodoro-time="24"
             id="pomodoroBtn"
-            class="px-1 py-1 rounded timerBtn cursor-pointer"
+            class="px-1 py-1 rounded timerBtn cursor-pointer text-[.8rem] md:text-[1rem]"
           >
             Pomodoro
           </button>
           <button
             data-shortBreak-time="4"
             id="shortBreakBtn"
-            class="px-1 py-1 rounded cursor-pointer"
+            class="px-1 py-1 rounded cursor-pointer text-[.8rem] md:text-[1rem]"
           >
             Short Break
           </button>
           <button
             data-longBreak-time="24"
             id="longBreakBtn"
-            class="px-1 py-1 rounded cursor-pointer"
+            class="px-1 py-1 rounded cursor-pointer text-[.8rem] md:text-[1rem]"
           >
             Long Break
           </button>
@@ -205,11 +249,11 @@
         <div class="flex justify-center items-center flex-col">
           <h1
             id="display-timer"
-            class="text-[5rem] xl:text-[8rem] md:text-[6.5rem] font-extrabold text-white"
+            class="text-[4rem] xl:text-[8rem] md:text-[6.5rem] font-extrabold text-white"
           ></h1>
           <button
             id="start-btn"
-            class="my-5 px-16 text-[1.5rem] py-3 rounded text-background-tomato-red bg-white cursor-pointer"
+            class="my-5 px-14 md:px-16 text-[1rem] md:text-[1.5rem] py-2 md:py-3 rounded text-background-tomato-red bg-white cursor-pointer"
           >
             START
           </button>
